@@ -164,7 +164,7 @@ while run:
             window.blit(lose, (200, 200))
             finish = True
 
-        if sprite.spritecollide(rocket,rocket_f, False):
+        if sprite.spritecollide(rocket,rackets_f, False):
             window.blit(lose, (200, 200))
             finish = True
 
