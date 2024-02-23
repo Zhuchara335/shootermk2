@@ -149,12 +149,16 @@ while run:
         window.blit(text_lose, (10, 50))
 
         text_friendkill = font3.render("Своїх вбито:" + str(lost), 1, (255, 255, 255))
-        window.blit(text_friendkill, (10, 50))
+        window.blit(text_friendkill, (10, 80))
+
+        if score_f >= 4:
+            finish = True
+            window.blit(lose, (200, 200))
 
         if lost >= 5:
             finish = True
             window.blit(lose, (200, 200))
-        if score >= 10:
+        if score >= 20:
             finish = True
             window.blit(win, (200, 200)) 
         if sprite.spritecollide(rocket,monsters, False):
@@ -184,7 +188,10 @@ while run:
         for s in collidesdt:
             rackket_f = Enemy( rocket_f, randint(80, win_height - 80), -30,  80, 50, randint(1, 5))
             rackets_f.add(rackket_f)
-            score = score + 1
+            score_f = score_f + 1
+
+
+
 
 
         display.update()
