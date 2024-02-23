@@ -180,10 +180,11 @@ while run:
             asteroids.add(asteroid)
             score = score + 1
 
-        for f in collides:
-            rocket_f = Enemy( rocket_f, randint(80, win_height - 80), -30, 80, 50, randint(1, 5))
-            rackets_f.add(rocket_f)
-            score_f = score_f + 1
+        collidesdt = sprite.groupcollide(rackets_f,bullets, True, True)
+        for s in collidesdt:
+            rackket_f = Enemy( rocket_f, randint(80, win_height - 80), -30,  80, 50, randint(1, 5))
+            rackets_f.add(rackket_f)
+            score = score + 1
 
 
         display.update()
