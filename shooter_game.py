@@ -67,7 +67,7 @@ class Friend():
     def update(self):
         self.rect.y += self.speed
         global score_f
-        if sprite.spritecollide(bullets, rockets_f, False):
+        if sprite.spritecollide(bullets, rackets_f, False):
             score_f = score_f + 1
         
 
@@ -75,7 +75,7 @@ class Friend():
 win_width = 700 
 win_height = 500 
 window = display.set_mode((win_width, win_height)) 
-display.set_caption("Shooter Game") 
+display.set_caption("Shooter Game.ver2") 
 background = transform.scale(image.load("galaxy.jpg"), (win_width, win_height)) 
 #шрифти ы написи 
 font.init() 
@@ -87,7 +87,7 @@ asteroid_img = 'asteroid.png'
 ammo = 'bullet.png' 
 rocket_img = 'rocket.png' 
 ufo = 'ufo.png' 
-rocket_f = 'rocket-friend.jpg'
+rocket_f = 'rocket-friend.png'
 #спайти 
 rocket = Player(rocket_img, 5, win_height - 100, 80, 100, 20) 
 
@@ -100,10 +100,10 @@ for i in range(1, 2):
     asteroid = Enemy( asteroid_img, randint(80, win_height - 80), -30,  80, 50, randint(1, 5))
     asteroids.add(asteroid)
 
-rockets_f = sprite.Group()
+rackets_f = sprite.Group()
 for i in range(1, 3):
-    rocket_f = Enemy( rocket_f, randint(80, win_height - 80), -30,  80, 50, randint(1, 5))
-    rockets_f.add(rocket_f)
+    rackket_f = Enemy( rocket_f, randint(80, win_height - 80), -30,  80, 50, randint(1, 5))
+    rackets_f.add(rackket_f)
 #змінна гра закінчилась 
 bullets = sprite.Group()
 
@@ -135,9 +135,9 @@ while run:
         asteroids.draw(window)
         bullets.draw(window)
         monsters.draw(window)
-        rockets_f.draw(window)
+        rackets_f.draw(window)
 
-        rockets_f.update()
+        rackets_f.update()
         bullets.update()
         asteroids.update()
         monsters.update()
@@ -182,7 +182,7 @@ while run:
 
         for f in collides:
             rocket_f = Enemy( rocket_f, randint(80, win_height - 80), -30, 80, 50, randint(1, 5))
-            rockets_f.add(rocket_f)
+            rackets_f.add(rocket_f)
             score_f = score_f + 1
 
 
