@@ -10,6 +10,7 @@ fire = mixer.Sound("fire.ogg")
 score_f = 0
 score = 0 
 lost = 0 
+kill_f = 0
 class GameSprite(sprite.Sprite): 
  
     def __init__(self, player_image , player_x , player_y, size_x, size_y, player_speed): 
@@ -56,7 +57,7 @@ class Enemy(GameSprite):
             lost = lost + 1 
 
 
-class Friend():
+class Friend(GameSprite):
     def __init__(self, player_image , player_x , player_y, size_x, size_y, player_speed): 
         sprite.Sprite.__init__(self) 
         self.image = transform.scale(image.load(player_image),(size_x, size_y))  
@@ -67,8 +68,11 @@ class Friend():
     def update(self):
         self.rect.y += self.speed
         global score_f
-        if sprite.spritecollide(bullets, rackets_f, False):
-            score_f = score_f + 1
+        if self.rect.y > win_height:
+            self.rect.x = randint(80, win_width - 80)
+            self.rect.y = 0
+            kill_f -= 1
+
         
 
 #ігрова сцена 
@@ -102,7 +106,7 @@ for i in range(1, 2):
 
 rackets_f = sprite.Group()
 for i in range(1, 3):
-    rackket_f = Enemy( rocket_f, randint(80, win_height - 80), -30,  80, 50, randint(1, 5))
+    rackket_f = Friend( rocket_f, randint(80, win_height - 80), -30,  80, 50, randint(1, 5))
     rackets_f.add(rackket_f)
 #змінна гра закінчилась 
 bullets = sprite.Group()
@@ -148,14 +152,14 @@ while run:
         text_lose = font2.render("Пропущено:" + str(lost), 1, (255, 255, 255))
         window.blit(text_lose, (10, 50))
 
-        text_friendkill = font3.render("Своїх вбито:" + str(lost), 1, (255, 255, 255))
+        text_friendkill = font3.render("Своїх вбито:" + str(kill_f), 1, (255, 255, 255))
         window.blit(text_friendkill, (10, 80))
 
         if score_f >= 4:
             finish = True
             window.blit(lose, (200, 200))
 
-        if lost >= 5:
+        if kill_f >= 5:
             finish = True
             window.blit(lose, (200, 200))
         if score >= 20:
@@ -184,14 +188,11 @@ while run:
             asteroids.add(asteroid)
             score = score + 1
 
-        collidesdt = sprite.groupcollide(rackets_f,bullets, True, True)
-        for s in collidesdt:
+        collides_f = sprite.groupcollide(rackets_f,bullets, True, True)
+        for s in collides_f:
             rackket_f = Enemy( rocket_f, randint(80, win_height - 80), -30,  80, 50, randint(1, 5))
             rackets_f.add(rackket_f)
-            score_f = score_f + 1
-
-
-
+            kill_f += 1
 
 
         display.update()
